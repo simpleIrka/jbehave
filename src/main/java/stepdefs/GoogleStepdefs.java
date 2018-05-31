@@ -1,28 +1,31 @@
 package stepdefs;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.jbehave.core.annotations.Given;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.open;
-import com.codeborne.selenide.Configuration;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.steps.Steps;
 import org.openqa.selenium.By;
+import util.ElementUtils;
+
 
 public class GoogleStepdefs extends Steps{
 
+   ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+
+    private ElementUtils elementUtils =(ElementUtils) context.getBean("util");
+
     @Given("User is on google page")
     public void givenUserIsOnGooglePage(){
-        Configuration.browser = "chrome";
-        Configuration.baseUrl = "https://www.google.by";
-        Configuration.timeout = 10000;
-        open(Configuration.baseUrl);
+       elementUtils.openLinkInChrome("https://www.google.by");
     }
 
     @When("User enters '$searchText' in search field")
@@ -38,6 +41,7 @@ public class GoogleStepdefs extends Steps{
     public void thenUserClicksLink() throws InterruptedException {
         ElementsCollection links = $$(By.className("r"));
         SelenideElement thisLink = links.first();
+        Thread.sleep(3000);
         thisLink.click();
         Thread.sleep(3000);
     }
