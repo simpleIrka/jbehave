@@ -22,6 +22,7 @@ public class GoogleStepdefs extends Steps{
    ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 
     private ElementUtils elementUtils =(ElementUtils) context.getBean("util");
+    private SelenideElement thisLink;
 
     @Given("User is on google page")
     public void givenUserIsOnGooglePage(){
@@ -40,9 +41,16 @@ public class GoogleStepdefs extends Steps{
     @Then("User clicks first link")
     public void thenUserClicksLink() throws InterruptedException {
         ElementsCollection links = $$(By.className("r"));
-        SelenideElement thisLink = links.first();
+        $$(By.className("r")).shouldHave(size(11));
+        thisLink = links.first();
         Thread.sleep(3000);
         thisLink.click();
         Thread.sleep(3000);
+    }
+    @Then("Link should contain search text '$searchText'")
+    public void k(@Named("searchText") String searchText){
+        String nameOfTitle;
+        nameOfTitle = thisLink.getSelectedText();
+        elementUtils.cheakTitle(nameOfTitle,searchText);
     }
 }

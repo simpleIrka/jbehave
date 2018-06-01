@@ -6,6 +6,7 @@ Given User is on google page
 When User enters '<searchText>' in search field
 When User clicks Search button
 Then User clicks first link
+Then Link should contain search text '<searchText>'
 
 Examples:
 |searchText|

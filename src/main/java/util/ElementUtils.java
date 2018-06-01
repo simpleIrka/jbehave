@@ -12,4 +12,10 @@ public class ElementUtils {
         Configuration.timeout = 10000;
         open(Configuration.baseUrl);
     }
+
+    public boolean cheakTitle(String nameOfLink, String textOfSearch){
+        textOfSearch = textOfSearch.toLowerCase();
+        nameOfLink = nameOfLink.toLowerCase();
+        return nameOfLink.contains(textOfSearch);
+    }
 }
