@@ -7,6 +7,7 @@ import org.jbehave.core.annotations.Given;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import org.jbehave.core.annotations.Named;
@@ -41,14 +42,14 @@ public class GoogleStepdefs extends Steps{
     @Then("User clicks first link")
     public void thenUserClicksLink() throws InterruptedException {
         ElementsCollection links = $$(By.className("r"));
-        $$(By.className("r")).shouldHave(size(11));
+        //$$(By.className("r")).shouldHave(size(11));
         thisLink = links.first();
         Thread.sleep(3000);
         thisLink.click();
         Thread.sleep(3000);
     }
     @Then("Link should contain search text '$searchText'")
-    public void k(@Named("searchText") String searchText){
+    public void thenLinkContainSearchText(@Named("searchText") String searchText){
         String nameOfTitle;
         nameOfTitle = thisLink.getSelectedText();
         elementUtils.cheakTitle(nameOfTitle,searchText);
